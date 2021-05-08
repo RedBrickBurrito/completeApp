@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddViewController: UIViewController {
+class AddViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var titleText: UITextField!
     @IBOutlet weak var authorText: UITextField!
     @IBOutlet weak var pagesText: UITextField!
@@ -41,10 +41,20 @@ class AddViewController: UIViewController {
 
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        titleText.delegate = self
+        authorText.delegate = self
+        pagesText.delegate = self
+        
         if editBook {
             self.title = "Edit Book"
             titleText.text = book.title
@@ -58,6 +68,8 @@ class AddViewController: UIViewController {
                 switchOutlet.isOn = false
             }
                 
+        } else {
+            self.title = "Add Book"
         }
 
     }
